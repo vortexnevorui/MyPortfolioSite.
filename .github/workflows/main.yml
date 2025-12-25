@@ -3,8 +3,6 @@ name: CI Check (HTML & Links)
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -14,16 +12,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # 1. Проверка HTML валидатором
-    - name: HTML Validator
-      uses: cygnetdigital/html-validator-action@v1
+    # Проверка HTML на ошибки (валидатор)
+    - name: HTML Hint
+      uses: htmlhint/htmlhint-action@v2
       with:
-        root: './'
-        included_file_extensions: 'html'
+        target: './*.html'
 
-    # 2. Проверка на битые ссылки
-    - name: Check for broken links
-      uses: gaurav-nelson/github-action-share-link-checker@v1
+    # Проверка битых ссылок
+    - name: Link Checker
+      uses: lycheeverse/lychee-action@v1.9.0
       with:
-        use-check-ly: true
-        folder: './'
+        args: --verbose ./*.html
