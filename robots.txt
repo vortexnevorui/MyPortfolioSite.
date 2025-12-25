@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Ссылка на карту сайта (Этап 8)
+Sitemap: https://username.github.io/MyPortfolioSite/sitemap.xml
