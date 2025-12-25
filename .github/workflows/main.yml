@@ -1,0 +1,29 @@
+name: CI Check (HTML & Links)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 1. Проверка HTML валидатором
+    - name: HTML Validator
+      uses: cygnetdigital/html-validator-action@v1
+      with:
+        root: './'
+        included_file_extensions: 'html'
+
+    # 2. Проверка на битые ссылки
+    - name: Check for broken links
+      uses: gaurav-nelson/github-action-share-link-checker@v1
+      with:
+        use-check-ly: true
+        folder: './'
